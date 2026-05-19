@@ -47,26 +47,15 @@ include('includes/header.php');
     </div>
 </div>
 
-<div class="mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title mb-2">Etat du serveur (API + fetch)</h5>
-            <p class="mb-0" id="serverTime">Chargement...</p>
-        </div>
-    </div>
-</div>
-
 <script>
 function chargerHeureServeur() {
     fetch('<?php echo base_url('api/server_time.php'); ?>')
         .then((response) => response.json())
         .then((data) => {
-            const cible = document.getElementById('serverTime');
-            cible.textContent = 'Heure serveur: ' + data.server_time + ' (' + data.timezone + ')';
+            console.log('Heure serveur:', data.server_time, data.timezone);
         })
         .catch(() => {
-            const cible = document.getElementById('serverTime');
-            cible.textContent = 'Impossible de charger l\'heure du serveur.';
+            console.log('Impossible de charger l\'heure du serveur.');
         });
 }
 
