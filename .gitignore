@@ -1,0 +1,9 @@
+# Local tooling and transcripts
+agent-transcripts/
+mcps/
+terminals/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
