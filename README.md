@@ -170,6 +170,11 @@ Role redirects:
 - Always use `http://localhost/assiduite/...`.
 - If styles/scripts look outdated, do hard refresh with `Ctrl + F5`.
 
+## API and fetch demo
+
+- API endpoint: [api/server_time.php](api/server_time.php) returns JSON with the server time.
+- Fetch call: [index.php](index.php#L33-L52) calls the API on page load and logs the result in the browser console.
+
 ## Screenshots
 
 Add your project screenshots inside a folder named `screenshots/` at the repository root, then reference them here.
