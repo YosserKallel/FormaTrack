@@ -15,7 +15,7 @@ $session_data = mysqli_fetch_assoc($session_result);
 $formation_id = (int)$session_data['formation_id'];
 
 if (isset($_POST['save_pointage'])) {
-    $utilisateurs_sql = "SELECT u.id FROM inscriptions i INNER JOIN utilisateurs u ON u.id=i.utilisateur_id WHERE i.formation_id=$formation_id";
+    $utilisateurs_sql = "SELECT u.id FROM inscriptions i INNER JOIN utilisateurs u ON u.id=i.utilisateur_id WHERE i.formation_id=$formation_id AND i.statut='approved'";
     $utilisateurs_result = mysqli_query($conn, $utilisateurs_sql);
     if ($utilisateurs_result) {
         while ($u = mysqli_fetch_assoc($utilisateurs_result)) {
@@ -43,11 +43,11 @@ if (isset($_POST['save_pointage'])) {
 
 $apprenants = array();
 $sql = "SELECT u.id, u.nom, u.email, p.statut, p.commentaire
-        FROM inscriptions i
-        INNER JOIN utilisateurs u ON u.id=i.utilisateur_id
-        LEFT JOIN presences p ON p.utilisateur_id=u.id AND p.session_id=$session_id
-        WHERE i.formation_id=$formation_id
-        ORDER BY u.nom ASC";
+    FROM inscriptions i
+    INNER JOIN utilisateurs u ON u.id=i.utilisateur_id
+    LEFT JOIN presences p ON p.utilisateur_id=u.id AND p.session_id=$session_id
+    WHERE i.formation_id=$formation_id AND i.statut='approved'
+    ORDER BY u.nom ASC";
 $result = mysqli_query($conn, $sql);
 if ($result) { while ($r=mysqli_fetch_assoc($result)) { $apprenants[] = $r; } }
 

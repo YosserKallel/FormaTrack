@@ -8,7 +8,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'formateur') {
 include('../includes/db.php');
 $formateur_id = (int) $_SESSION['id'];
 $sessions = array();
-$sql = "SELECT s.id, s.date, s.heure_debut, s.heure_fin, s.salle, f.intitule
+$sql = "SELECT s.id, s.date, s.heure_debut, s.heure_fin, s.salle, s.notes, f.intitule
         FROM sessions s
         INNER JOIN formations f ON f.id = s.formation_id
         WHERE s.formateur_id = $formateur_id
@@ -22,7 +22,10 @@ if ($result) {
 $page_title = 'Sessions formateur';
 include('../includes/header.php');
 ?>
-<h2 class="h4 mb-3">Mes sessions</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h4 mb-0">Mes sessions</h2>
+    <a href="<?php echo base_url('formateur/sessions_create.php'); ?>" class="btn btn-success">Ajouter une session</a>
+</div>
 <div class="card shadow-sm">
     <div class="card-body">
         <?php if (count($sessions) === 0) { ?>
@@ -30,7 +33,7 @@ include('../includes/header.php');
         <?php } else { ?>
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
-                    <thead class="table-light"><tr><th>Formation</th><th>Date</th><th>Heures</th><th>Salle</th><th class="text-end">Action</th></tr></thead>
+                    <thead class="table-light"><tr><th>Formation</th><th>Date</th><th>Heures</th><th>Salle</th><th>Notes</th><th class="text-end">Action</th></tr></thead>
                     <tbody>
                     <?php foreach ($sessions as $s) { ?>
                         <tr>
@@ -38,7 +41,11 @@ include('../includes/header.php');
                             <td><?php echo htmlspecialchars($s['date']); ?></td>
                             <td><?php echo htmlspecialchars($s['heure_debut']); ?> - <?php echo htmlspecialchars($s['heure_fin']); ?></td>
                             <td><?php echo htmlspecialchars($s['salle']); ?></td>
-                            <td class="text-end"><a class="btn btn-sm btn-primary" href="<?php echo base_url('formateur/pointage.php?session=' . (int)$s['id']); ?>">Faire le pointage</a></td>
+                            <td><?php echo htmlspecialchars($s['notes'] !== null && $s['notes'] !== '' ? $s['notes'] : '-'); ?></td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-secondary" href="<?php echo base_url('formateur/sessions_edit.php?id=' . (int) $s['id']); ?>">Modifier</a>
+                                <a class="btn btn-sm btn-primary" href="<?php echo base_url('formateur/pointage.php?session=' . (int)$s['id']); ?>">Faire le pointage</a>
+                            </td>
                         </tr>
                     <?php } ?>
                     </tbody>

@@ -36,20 +36,41 @@ include('../../includes/header.php');
 </div></div>
 
 <div class="card shadow-sm"><div class="card-body">
-<?php if($session_id<=0){ ?><div class="alert alert-info mb-0">Choisissez une session pour voir la feuille.</div>
-<?php elseif(count($presences)===0){ ?><div class="alert alert-warning mb-0">Aucune presence saisie pour cette session.</div>
-<?php } else { ?>
-<div class="table-responsive"><table class="table table-hover align-middle">
-<thead class="table-light"><tr><th>Nom</th><th>Email</th><th>Formation</th><th>Date session</th><th>Statut</th><th>Commentaire</th><th class="text-end">Action</th></tr></thead>
-<tbody>
-<?php foreach($presences as $p){ ?>
-<tr>
-<td><?php echo htmlspecialchars($p['nom']); ?></td><td><?php echo htmlspecialchars($p['email']); ?></td><td><?php echo htmlspecialchars($p['intitule']); ?></td><td><?php echo htmlspecialchars($p['session_date']); ?></td>
-<td><?php echo htmlspecialchars($p['statut']); ?></td><td><?php echo htmlspecialchars($p['commentaire']); ?></td>
-<td class="text-end"><a class="btn btn-sm btn-warning" href="<?php echo base_url('admin/presences/edit.php?id='.(int)$p['id']); ?>">Corriger</a></td>
-</tr>
-<?php } ?>
-</tbody></table></div>
-<?php } ?>
+<?php if ($session_id <= 0): ?>
+    <div class="alert alert-info mb-0">Choisissez une session pour voir la feuille.</div>
+<?php elseif (count($presences) === 0): ?>
+    <div class="alert alert-warning mb-0">Aucune presence saisie pour cette session.</div>
+<?php else: ?>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Formation</th>
+                    <th>Date session</th>
+                    <th>Statut</th>
+                    <th>Commentaire</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($presences as $p): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($p['nom']); ?></td>
+                    <td><?php echo htmlspecialchars($p['email']); ?></td>
+                    <td><?php echo htmlspecialchars($p['intitule']); ?></td>
+                    <td><?php echo htmlspecialchars($p['session_date']); ?></td>
+                    <td><?php echo htmlspecialchars($p['statut']); ?></td>
+                    <td><?php echo htmlspecialchars($p['commentaire']); ?></td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-warning" href="<?php echo base_url('admin/presences/edit.php?id=' . (int) $p['id']); ?>">Corriger</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>
 </div></div>
 <?php include('../../includes/footer.php'); ?>

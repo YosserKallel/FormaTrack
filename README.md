@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS sessions (
   heure_debut TIME NOT NULL,
   heure_fin TIME NOT NULL,
   salle VARCHAR(100) NOT NULL,
+   notes TEXT NULL,
   FOREIGN KEY (formation_id) REFERENCES formations(id) ON DELETE CASCADE,
   FOREIGN KEY (formateur_id) REFERENCES utilisateurs(id) ON DELETE SET NULL
 );
@@ -104,6 +105,7 @@ CREATE TABLE IF NOT EXISTS inscriptions (
   utilisateur_id INT NOT NULL,
   formation_id INT NOT NULL,
   date_inscription DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   statut ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   UNIQUE KEY uniq_inscription (utilisateur_id, formation_id),
   FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
   FOREIGN KEY (formation_id) REFERENCES formations(id) ON DELETE CASCADE
@@ -169,6 +171,15 @@ Role redirects:
 - Do not open `.php` files directly from filesystem (`file:///...`).
 - Always use `http://localhost/assiduite/...`.
 - If styles/scripts look outdated, do hard refresh with `Ctrl + F5`.
+
+## Database updates (if you already created tables)
+
+Run these once in phpMyAdmin (SQL tab):
+
+```sql
+ALTER TABLE sessions ADD COLUMN notes TEXT NULL;
+ALTER TABLE inscriptions ADD COLUMN statut ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending';
+```
 
 ## API and fetch demo
 

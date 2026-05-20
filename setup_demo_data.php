@@ -100,10 +100,10 @@ if (isset($_POST['generate_demo'])) {
             $fid1 = (int) $formation_ids[0];
             $fid2 = (int) $formation_ids[1];
             $fid3 = (int) $formation_ids[2];
-            mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription) VALUES ($apprenant_id, $fid1, NOW())");
-            mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription) VALUES ($apprenant_id, $fid2, NOW())");
+            mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription, statut) VALUES ($apprenant_id, $fid1, NOW(), 'approved')");
+            mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription, statut) VALUES ($apprenant_id, $fid2, NOW(), 'approved')");
             if ($idx % 2 === 0) {
-                mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription) VALUES ($apprenant_id, $fid3, NOW())");
+                mysqli_query($conn, "INSERT INTO inscriptions (utilisateur_id, formation_id, date_inscription, statut) VALUES ($apprenant_id, $fid3, NOW(), 'approved')");
             }
         }
 

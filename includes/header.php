@@ -47,7 +47,15 @@ if (!isset($page_title)) {
                     <?php } elseif ($_SESSION['role'] === 'formateur') { ?>
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url('formateur/sessions.php'); ?>">Mes sessions</a></li>
                     <?php } elseif ($_SESSION['role'] === 'admin') { ?>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/users/list.php'); ?>">Administration</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="<?php echo base_url('admin/users/list.php'); ?>">Utilisateurs</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('admin/formations/list.php'); ?>">Formations</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('admin/sessions/list.php'); ?>">Sessions</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('admin/presences/list.php'); ?>">Presences</a></li>
+                            </ul>
+                        </li>
                     <?php } ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url('logout.php'); ?>">Deconnexion</a></li>
                 <?php } else { ?>
